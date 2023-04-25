@@ -5,12 +5,28 @@
 
   width: 17em !important;
   margin: 0 0 1em 2em;
+  
+}
+
+.card-body {
+    padding: 18px;
 }
 
 .card:nth-child(1) {
   margin-left: 0 !important;
 }
 
-.card div {
+.card > div {
   user-select: text;
 }
+
+.card > div > div {
+    display: flex;
+}
+
+.card a:nth-last-child(1) {
+  margin-left: auto;
+   
+}
+
+
