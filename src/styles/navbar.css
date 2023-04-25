@@ -1,0 +1,47 @@
+nav {
+  display: flex;
+  justify-content: center !important;
+
+  padding: 20px 0 !important;
+}
+
+nav > div > a {
+  margin: 4px 0 !important;
+  line-height: 0 !important;
+}
+
+nav > div {
+  display: flex;
+  width: 79% !important;
+}
+nav .dropdown {
+  margin-left: auto;
+}
+
+nav button {
+  display: flex !important;
+  align-items: center;
+
+  padding: 10px 20px !important;
+  font-size: 18px !important;
+}
+
+nav button > div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+
+  height: 18px;
+  width: 18px;
+  margin-left: 0.25rem;
+  border-radius: 5px;
+
+  background-color: grey;
+}
+
+nav button > div > p {
+  line-height: 16px;
+  font-size: 14px;
+  font-weight: bold;
+}
