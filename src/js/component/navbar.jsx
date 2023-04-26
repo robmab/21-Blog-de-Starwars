@@ -7,7 +7,7 @@ import sfLogo from "../../img/sw.png";
 
 export const Navbar = () => {
   return (
-    <nav className="navbar navbar-light bg-light mb-3">
+    <nav className="navbar navbar-light bg-light">
       <div className="">
         <Link to="/">
           <img width="80px" src={sfLogo} alt="" />

@@ -5,11 +5,10 @@
 
   width: 17em !important;
   margin: 0 0 1em 2em;
-  
 }
 
 .card-body {
-    padding: 18px;
+  padding: 18px;
 }
 
 .card:nth-child(1) {
@@ -21,12 +20,15 @@
 }
 
 .card > div > div {
-    display: flex;
+  display: flex;
 }
 
 .card a:nth-last-child(1) {
   margin-left: auto;
-   
 }
 
-
+@media (max-width: 720px) {
+  .card {
+    width: 100% !important;
+  }
+}

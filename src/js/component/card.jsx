@@ -8,7 +8,7 @@ import "../../styles/card.css";
 
 export const Card = () => {
   return (
-    <div className="card" style={{ width: "18rem" }}>
+    <div className="card">
       <img
         src="https://camo.githubusercontent.com/908353dc3ced1a991b7ab6c188819379f2aa8024bd960117250bb6f0146e76e9/68747470733a2f2f7669612e706c616365686f6c6465722e636f6d2f343030783230302e706e67"
         className="card-img-top"
@@ -21,9 +21,9 @@ export const Card = () => {
           bulk of the card's content.
         </p>
         <div>
-          <a href="#" className="btn btn-outline-primary">
+          <Link to="/characters/0" className="btn btn-outline-primary">
             Learn more!
-          </a>
+          </Link>
           <a href="#" className="btn btn-outline-warning">
             <FontAwesomeIcon icon={faHeart} />
           </a>
