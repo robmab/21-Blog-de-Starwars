@@ -1,11 +1,50 @@
-import React from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
+import { Context } from "../store/appContext";
+
 import { Link } from "react-router-dom";
 
 import "../../styles/navbar.css";
-
 import sfLogo from "../../img/sw.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export const Navbar = () => {
+  const { store, actions } = useContext(Context);
+  const [fav, setFav] = useState(store.favourites);
+
+  const [hover, setHover] = useState(false);
+
+  /*  CHECK EVERY 0.25 SEC STORE.FAVOURITES DATA,
+  WHEN DATA FROM LOCALSTORAGE IS LOADED, 
+  BREAK LOOP AND SET DATA */
+  useEffect(() => {
+    if (fav.length === 0) {
+      const int = setInterval(() => {
+        if (store.favourites.length > 0) {
+          setFav(store.favourites);
+
+          clearInterval(int);
+        }
+      }, 250);
+    }
+  }, []);
+
+  /* CAPTURE WIDTH AND HEIGHT WHEN ZOOM IN/OUT */
+  const [dimensions, setDimensions] = useState({
+    height: window.innerWidth,
+    width: window.innerHeight,
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setDimensions({
+        height: window.innerHeight,
+        width: window.innerWidth,
+      });
+    };
+    window.addEventListener("resize", handleResize);
+  }, []);
+
   return (
     <nav className="navbar navbar-light bg-light">
       <div className="">
@@ -23,25 +62,32 @@ export const Navbar = () => {
           >
             Favorites
             <div>
-              <p>1</p>
+              <p>{fav.length}</p>
             </div>
           </button>
           <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li>
-              <a className="dropdown-item" href="#">
-                Action
-              </a>
-            </li>
-            <li>
-              <a className="dropdown-item" href="#">
-                Another action
-              </a>
-            </li>
-            <li>
-              <a className="dropdown-item" href="#">
-                Something else here
-              </a>
-            </li>
+            {fav.length === 0 ? (
+              <p>Empty list</p>
+            ) : (
+              fav.map((x, y) => (
+                <li
+                  onMouseEnter={() => {
+                    setHover(y);
+                  }}
+                  onMouseLeave={() => {
+                    setHover(false);
+                  }}
+                  key={y}
+                >
+                  <Link className="" to={`/${x.type}/${x.keyStore}`}>
+                    {x.name}
+                  </Link>
+                  {hover === y || dimensions.width < 900 ? (
+                    <FontAwesomeIcon icon={faTrash} />
+                  ) : null}
+                </li>
+              ))
+            )}
           </ul>
         </div>
       </div>

@@ -6,8 +6,6 @@ import { Context } from "../store/appContext";
 import "../../styles/description.css";
 
 export const Characters = () => {
-  
-
   const { store, actions } = useContext(Context);
   const param = useParams().theid;
 
@@ -24,12 +22,12 @@ export const Characters = () => {
 
   useEffect(() => {
     //Check when store is not empty
-    if (Object.keys(store).length === 0) {
+    if (Object.keys(store).length === 1) {
       const interval = setInterval(() => {
         if (store.people !== undefined) {
           setName(store.people[param].name);
           actions.loadData(param, "people", setValues);
-          
+
           clearInterval(interval);
         }
       }, 250);

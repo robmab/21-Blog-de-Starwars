@@ -3,7 +3,6 @@ nav {
   justify-content: center !important;
 
   padding: 20px 0 !important;
-
 }
 
 nav > div > a {
@@ -45,4 +44,31 @@ nav button > div > p {
   line-height: 16px;
   font-size: 14px;
   font-weight: bold;
+}
+
+/* FAVOURITES */
+nav ul {
+  padding: 0 !important;
+}
+nav ul > p {
+  padding: 0.5em 1.3em;
+  margin: 0;
+}
+nav li {
+  display: flex;
+
+  padding: 0.5em 1em;
+  border: 1px solid rgba(133, 132, 132, 0.311);
+}
+
+nav li > a {
+  display: flex;
+  text-decoration: none;
+  color: rgb(6, 149, 252);
+  width: 7em;
+}
+
+nav li  svg {
+  margin: auto 0 auto auto;
+  padding-left: 0.3em;
 }

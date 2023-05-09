@@ -22,7 +22,7 @@ export const Planets = (props) => {
 
   useEffect(() => {
     //Check when store is not empty
-    if (Object.keys(store).length === 0) {
+    if (Object.keys(store).length === 1) {
       const interval = setInterval(() => {
         if (store.planets !== undefined) {
           setName(store.planets[param].name);

@@ -1,8 +1,35 @@
 const getState = ({ getStore, getActions, setStore }) => {
   return {
-    store: {},
+    store: {
+      favourites: [],
+    },
     actions: {
+      addFavourites: (props) => {
+        const store = getStore();
+
+        store.favourites.push({
+          name: props.name,
+          type: props.type,
+          keyStore: props.keyStore,
+        });
+        setStore(store);
+
+        localStorage.setItem("favourites", JSON.stringify(store.favourites));
+       
+        
+      },
+
       loadAllData: () => {
+        /* FAVOURITES LOAD FROM LOCALSTORAGE */
+        if (localStorage.getItem("favourites") !== null) {
+          const store = getStore()
+          store.favourites = JSON.parse(
+            localStorage.getItem("favourites")
+          );
+          setStore(store)
+        
+        }
+
         /* PEOPLE */
         const people = localStorage.getItem("people");
         if (people === null) {

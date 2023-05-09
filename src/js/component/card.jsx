@@ -9,7 +9,23 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import "../../styles/card.css";
 
 export const Card = (props) => {
- 
+  const { store, actions } = useContext(Context);
+  const [like, setLike] = useState(false);
+  const [charged, setCharged] = useState(false);
+
+  const addFavouritesHandle = () => {
+    actions.addFavourites(props);
+  };
+
+  useEffect(() => {
+    store.favourites.forEach((x, y) => {
+      if (props.name === x.name) {
+        setLike(true);
+      }
+    });
+    setCharged(true);
+  }, [addFavouritesHandle]);
+
   return (
     <div className="card">
       <img
@@ -28,7 +44,19 @@ export const Card = (props) => {
           >
             Learn more!
           </Link>
-          <a href="#" className="btn btn-outline-warning">
+
+          <a
+            onClick={!like ? addFavouritesHandle : null}
+            href="#"
+            className="btn btn-outline-warning"
+            style={
+              !charged
+                ? { display: "none" }
+                : like
+                ? { color: "red", borderColor: "red" }
+                : null
+            }
+          >
             <FontAwesomeIcon icon={faHeart} />
           </a>
         </div>
