@@ -5,40 +5,39 @@ import { Context } from "../store/appContext";
 
 import "../../styles/description.css";
 
-export const Characters = () => {
-  
-
+export const Vehicles = (props) => {
   const { store, actions } = useContext(Context);
   const param = useParams().theid;
 
-  const [name, setName] = useState("");
+  const [name,setName]= useState("")
 
   const [values, setValues] = useState({
     subName: "",
-    birthYear: "",
-    gender: "",
-    height: "",
-    skinColor: "",
-    eyeColor: "",
+    model: "",
+    length: "",
+    maxAtmospheringSpeed: "",
+    costInCredits: "",
+    cargoCapacity: "",
   });
 
   useEffect(() => {
     //Check when store is not empty
     if (Object.keys(store).length === 0) {
       const interval = setInterval(() => {
-        if (store.people !== undefined) {
-          setName(store.people[param].name);
-          actions.loadData(param, "people", setValues);
-          
+        if (store.vehicles !== undefined) {
+          setName(store.vehicles[param].name);
+          actions.loadData(param, "vehicles", setValues);
+
           clearInterval(interval);
         }
       }, 250);
     } else {
-      setName(store.people[param].name);
-      actions.loadData(param, "people", setValues);
+      setName(store.vehicles[param].name);
+      actions.loadData(param, "vehicles", setValues);
     }
   }, []);
 
+  
   return (
     <div className="container-fluid characters-wrapper ">
       <div className="row characters-wrapper-top ">
@@ -70,15 +69,15 @@ export const Characters = () => {
             <thead>
               <tr>
                 <th>Name</th>
-                <th>Birth Year</th>
-                <th>Gender</th>
+                <th>Model</th>
+                <th>Length</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>{values.subName}</td>
-                <td>{values.birthYear}</td>
-                <td>{values.gender}</td>
+                <td>{values.model}</td>
+                <td>{values.length}</td>
               </tr>
             </tbody>
           </table>
@@ -87,16 +86,16 @@ export const Characters = () => {
           <table>
             <thead>
               <tr>
-                <th>Height</th>
-                <th>Skin Color</th>
-                <th>Eye Color</th>
+                <th>Max Atmosphering Speed</th>
+                <th>Cost In Credits</th>
+                <th>Capacity</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>{values.height}</td>
-                <td>{values.skinColor}</td>
-                <td>{values.eyeColor}</td>
+                <td>{values.maxAtmospheringSpeed}</td>
+                <td>{values.costInCredits}</td>
+                <td>{values.cargoCapacity}</td>
               </tr>
             </tbody>
           </table>
@@ -105,3 +104,5 @@ export const Characters = () => {
     </div>
   );
 };
+
+

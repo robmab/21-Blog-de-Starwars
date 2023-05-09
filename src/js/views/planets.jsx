@@ -5,40 +5,37 @@ import { Context } from "../store/appContext";
 
 import "../../styles/description.css";
 
-export const Characters = () => {
-  
-
+export const Planets = (props) => {
   const { store, actions } = useContext(Context);
   const param = useParams().theid;
 
-  const [name, setName] = useState("");
+  const [name,setName]= useState("")
 
   const [values, setValues] = useState({
     subName: "",
-    birthYear: "",
-    gender: "",
-    height: "",
-    skinColor: "",
-    eyeColor: "",
+    climate: "",
+    population: "",
+    orbitalPeriod: "",
+    rotationPeriod: "",
+    diameter: "",
   });
 
   useEffect(() => {
     //Check when store is not empty
     if (Object.keys(store).length === 0) {
       const interval = setInterval(() => {
-        if (store.people !== undefined) {
-          setName(store.people[param].name);
-          actions.loadData(param, "people", setValues);
-          
+        if (store.planets !== undefined) {
+          setName(store.planets[param].name);
+          actions.loadData(param, "planets", setValues);
+
           clearInterval(interval);
         }
       }, 250);
     } else {
-      setName(store.people[param].name);
-      actions.loadData(param, "people", setValues);
+      setName(store.planets[param].name);
+      actions.loadData(param, "planets", setValues);
     }
   }, []);
-
   return (
     <div className="container-fluid characters-wrapper ">
       <div className="row characters-wrapper-top ">
@@ -69,16 +66,16 @@ export const Characters = () => {
           <table>
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Birth Year</th>
-                <th>Gender</th>
+              <th>Name</th>
+                <th>Climate</th>
+                <th>Population</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>{values.subName}</td>
-                <td>{values.birthYear}</td>
-                <td>{values.gender}</td>
+                <td>{values.climate}</td>
+                <td>{values.population}</td>
               </tr>
             </tbody>
           </table>
@@ -87,16 +84,16 @@ export const Characters = () => {
           <table>
             <thead>
               <tr>
-                <th>Height</th>
-                <th>Skin Color</th>
-                <th>Eye Color</th>
+                <th>Orbital Period</th>
+                <th>Rotation Period</th>
+                <th>Diameter</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>{values.height}</td>
-                <td>{values.skinColor}</td>
-                <td>{values.eyeColor}</td>
+                <td>{values.orbitalPeriod}</td>
+                <td>{values.rotationPeriod}</td>
+                <td>{values.diameter}</td>
               </tr>
             </tbody>
           </table>
