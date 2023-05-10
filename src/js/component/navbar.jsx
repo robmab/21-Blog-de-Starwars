@@ -15,7 +15,6 @@ export const Navbar = () => {
   const [hover, setHover] = useState(false);
 
   /* DELETE FAVOURITE */
-
   const deleteHandle = (e) => {
     e.stopPropagation(); //Avoid close dropdown que click inside
     actions.deleteFavourites(e.target.parentNode.id);

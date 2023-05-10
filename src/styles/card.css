@@ -5,6 +5,7 @@
 
   width: 17em !important;
   margin: 0 0 1em 2em;
+  
 }
 
 .card-body {
@@ -27,6 +28,10 @@
   margin-left: auto;
 }
 
+.card ul{
+  list-style-type: none;
+  padding: 0;
+}
 
 
 @media (max-width: 720px) {
