@@ -71,4 +71,5 @@ nav li > a {
 nav li  svg {
   margin: auto 0 auto auto;
   padding-left: 0.3em;
+  cursor: crosshair;
 }

@@ -13,18 +13,29 @@ export const Card = (props) => {
   const [like, setLike] = useState(false);
   const [charged, setCharged] = useState(false);
 
+
+
+
   const addFavouritesHandle = () => {
     actions.addFavourites(props);
   };
 
+  const deleteFavouritesHandle = () => {
+    actions.deleteFavourites(props.name);
+  };
+
+  /* SET/UNSET FAVOURITES */
   useEffect(() => {
+    setLike(false); //reset on every load
     store.favourites.forEach((x, y) => {
       if (props.name === x.name) {
         setLike(true);
       }
     });
     setCharged(true);
-  }, [addFavouritesHandle]);
+  }, [addFavouritesHandle,deleteFavouritesHandle]);
+
+
 
   return (
     <div className="card">
@@ -46,7 +57,7 @@ export const Card = (props) => {
           </Link>
 
           <a
-            onClick={!like ? addFavouritesHandle : null}
+            onClick={!like ? addFavouritesHandle : deleteFavouritesHandle}
             href="#"
             className="btn btn-outline-warning"
             style={

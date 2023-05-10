@@ -24,7 +24,7 @@ const injectContext = (PassedComponent) => {
     useEffect(() => {
       /* console.log(window.localStorage); */
       /* REMOVE LOCAL STORAGE */
-      /* localStorage.clear(); */
+     /*  localStorage.clear(); */
 
       state.actions.loadAllData();
     }, []);
