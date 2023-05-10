@@ -4,6 +4,14 @@ const getState = ({ getStore, getActions, setStore }) => {
       favourites: [],
     },
     actions: {
+      deleteFavourites: (name) => {
+        let store = getStore();
+        store.favourites = store.favourites.filter((x) => x.name != name);
+        setStore(store);
+
+        localStorage.setItem("favourites", JSON.stringify(store.favourites));
+      },
+
       addFavourites: (props) => {
         const store = getStore();
 
@@ -15,19 +23,14 @@ const getState = ({ getStore, getActions, setStore }) => {
         setStore(store);
 
         localStorage.setItem("favourites", JSON.stringify(store.favourites));
-       
-        
       },
 
       loadAllData: () => {
         /* FAVOURITES LOAD FROM LOCALSTORAGE */
         if (localStorage.getItem("favourites") !== null) {
-          const store = getStore()
-          store.favourites = JSON.parse(
-            localStorage.getItem("favourites")
-          );
-          setStore(store)
-        
+          const store = getStore();
+          store.favourites = JSON.parse(localStorage.getItem("favourites"));
+          setStore(store);
         }
 
         /* PEOPLE */

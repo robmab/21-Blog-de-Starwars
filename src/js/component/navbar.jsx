@@ -14,6 +14,14 @@ export const Navbar = () => {
 
   const [hover, setHover] = useState(false);
 
+  /* DELETE FAVOURITE */
+
+  const deleteHandle = (e) => {
+    e.stopPropagation(); //Avoid close dropdown que click inside
+    actions.deleteFavourites(e.target.parentNode.id);
+    setFav(store.favourites);
+  };
+
   /*  CHECK EVERY 0.25 SEC STORE.FAVOURITES DATA,
   WHEN DATA FROM LOCALSTORAGE IS LOADED, 
   BREAK LOOP AND SET DATA */
@@ -26,8 +34,8 @@ export const Navbar = () => {
           clearInterval(int);
         }
       }, 250);
-    }
-  }, []);
+    } else setFav(store.favourites);
+  }, [deleteHandle]);
 
   /* CAPTURE WIDTH AND HEIGHT WHEN ZOOM IN/OUT */
   const [dimensions, setDimensions] = useState({
@@ -43,6 +51,7 @@ export const Navbar = () => {
       });
     };
     window.addEventListener("resize", handleResize);
+    window.addEventListener("load", handleResize);
   }, []);
 
   return (
@@ -79,11 +88,15 @@ export const Navbar = () => {
                   }}
                   key={y}
                 >
-                  <Link className="" to={`/${x.type}/${x.keyStore}`}>
+                  <Link className="fav-name" to={`/${x.type}/${x.keyStore}`}>
                     {x.name}
                   </Link>
                   {hover === y || dimensions.width < 900 ? (
-                    <FontAwesomeIcon icon={faTrash} />
+                    <FontAwesomeIcon
+                      id={x.name}
+                      onClick={deleteHandle}
+                      icon={faTrash}
+                    />
                   ) : null}
                 </li>
               ))
