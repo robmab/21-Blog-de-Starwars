@@ -56,13 +56,18 @@ export const Card = (props) => {
   }, []);
   return (
     <div className="card">
-      <img
-        src="https://camo.githubusercontent.com/908353dc3ced1a991b7ab6c188819379f2aa8024bd960117250bb6f0146e76e9/68747470733a2f2f7669612e706c616365686f6c6465722e636f6d2f343030783230302e706e67"
-        className="card-img-top"
-        alt="..."
-      />
+      <img src={props.url} className="card-img-top" alt="..." height="150em" />
       <div className="card-body">
-        <h5 className="card-title">{props.name}</h5>
+        <h5
+          className="card-title"
+          style={
+            props.name === "Storm IV Twin-Pod cloud car"
+              ? { fontSize: "1.1em" }
+              : null
+          }
+        >
+          {props.name}
+        </h5>
 
         {localStorage.getItem(props.name) !== null &&
         props.type === "characters" ? (
