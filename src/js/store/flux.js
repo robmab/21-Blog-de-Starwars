@@ -1,6 +1,9 @@
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
+      people: [],
+      vehicles: [],
+      planets: [],
       favourites: [],
     },
     actions: {
@@ -98,7 +101,10 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       loadData: (param, type, setValues) => {
+        if (getStore().people.length === 0) return; //Check if people is not empty first
+
         const details = getStore()[type][param];
+
         const properties = () => {
           //SET PROPERTIES FUNCTION
           if (type === "people") {
@@ -146,23 +152,18 @@ const getState = ({ getStore, getActions, setStore }) => {
             .then((data) => {
               console.log(data);
               getStore()[type][param].item = data.result;
-
-              properties(); //SET PROPERTIES OF USESTATE FROM VIEW
+              properties();
 
               //SAVE DATA ON LOCALSTORAGE
               localStorage.setItem(
-                details.item.properties.name,
+                details.name,
                 JSON.stringify(details.item)
               );
             })
             .catch((error) => console.log(error));
         } else {
-          //CHARGE DATA FROM LOCALSTORAGE AND SAVE IT ON STORE FLUX
-          const store = getStore();
-          store[type][param].item = JSON.parse(component);
-          setStore(store);
-
-          properties(); //SET PROPERTIES OF USESTATE FROM VIEW
+          getStore()[type][param].item = JSON.parse(component);
+          properties();
         }
       },
     },

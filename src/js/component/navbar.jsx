@@ -14,29 +14,17 @@ export const Navbar = () => {
 
   const [hover, setHover] = useState(false);
 
-  /* DELETE FAVOURITE */
+  // DELETE FAVOURITE
   const deleteHandle = (e) => {
-    e.stopPropagation(); //Avoid close dropdown que click inside
+    e.stopPropagation(); //Avoid close dropdown when click inside
     actions.deleteFavourites(e.target.parentNode.id);
-    setFav(store.favourites);
   };
 
-  /*  CHECK EVERY 0.25 SEC STORE.FAVOURITES DATA,
-  WHEN DATA FROM LOCALSTORAGE IS LOADED, 
-  BREAK LOOP AND SET DATA */
   useEffect(() => {
-    if (fav.length === 0) {
-      const int = setInterval(() => {
-        if (store.favourites.length > 0) {
-          setFav(store.favourites);
+    setFav(store.favourites);
+  }, [store.favourites]);
 
-          clearInterval(int);
-        }
-      }, 250);
-    } else setFav(store.favourites);
-  }, [deleteHandle]);
-
-  /* CAPTURE WIDTH AND HEIGHT WHEN ZOOM IN/OUT */
+  //CAPTURE WIDTH AND HEIGHT WHEN ZOOM IN/OUT
   const [dimensions, setDimensions] = useState({
     height: window.innerWidth,
     width: window.innerHeight,
@@ -90,6 +78,7 @@ export const Navbar = () => {
                   <Link className="fav-name" to={`/${x.type}/${x.keyStore}`}>
                     {x.name}
                   </Link>
+                  {/* ON MOBILE, TRASH ICON ALWAYS APPEAR */}
                   {hover === y || dimensions.width < 900 ? (
                     <FontAwesomeIcon
                       id={x.name}

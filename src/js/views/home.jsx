@@ -9,9 +9,7 @@ import { Card } from "../component/card.jsx";
 export const Home = () => {
   const { store } = useContext(Context);
 
-  useEffect(() => {
-    console.log(store.people);
-  }, []);
+
 
   return (
     <div className="home-wrapper">

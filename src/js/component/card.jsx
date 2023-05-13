@@ -10,48 +10,49 @@ import "../../styles/card.css";
 
 export const Card = (props) => {
   const { store, actions } = useContext(Context);
-
   const [like, setLike] = useState(false);
-  const [charged, setCharged] = useState(false); //Quit delay for change color
-  const [focus, setFocus] = useState(false); //Box-shadow onFocus
-
-  const addFavouritesHandle = () => {
-    actions.addFavourites(props);
-  };
-
-  const deleteFavouritesHandle = () => {
-    actions.deleteFavourites(props.name);
-  };
 
   /* SET/UNSET FAVOURITES */
   useEffect(() => {
-    setLike(false); //reset on every load
-    store.favourites.forEach((x, y) => {
-      if (props.name === x.name) {
-        setLike(true);
-      }
+    setLike(false);
+    store.favourites.forEach((x) => {
+      if (props.name === x.name) setLike(true);
     });
-    setCharged(true);
-  }, [addFavouritesHandle, deleteFavouritesHandle]);
+  }, [store.favourites]);
 
-  /* HARGE SOME DATA FROM LOCALSTORAGE */
-  const [data, setData] = useState("");
+  const handlerOnClick = () => {
+    if (!like) actions.addFavourites(props);
+    else actions.deleteFavourites(props.name);
+    setLike(!like);
+  };
+
+  /* CHARGE DATA FROM LOCALSTORAGE */
+  const [data, setData] = useState({});
   useEffect(() => {
     if (localStorage.getItem(props.name) != null) {
       const properties = JSON.parse(localStorage.getItem(props.name));
-      setData({
-        gender: properties.properties.gender,
-        hairColor: properties.properties.hair_color,
-        eyeColor: properties.properties.eye_color,
 
-        model: properties.properties.model,
-        length: properties.properties.length,
-        cost: properties.properties.cost_in_credits,
-
-        population: properties.properties.population,
-        terrain: properties.properties.terrain,
-        diameter: properties.properties.diameter,
-      });
+      if (props.type === "characters") {
+        setData({
+          gender: properties.properties.gender,
+          hairColor: properties.properties.hair_color,
+          eyeColor: properties.properties.eye_color,
+        });
+      }
+      if (props.type === "vehicles") {
+        setData({
+          model: properties.properties.model,
+          length: properties.properties.length,
+          cost: properties.properties.cost_in_credits,
+        });
+      }
+      if (props.type === "planets") {
+        setData({
+          population: properties.properties.population,
+          terrain: properties.properties.terrain,
+          diameter: properties.properties.diameter,
+        });
+      }
     }
   }, []);
   return (
@@ -113,32 +114,10 @@ export const Card = (props) => {
           </Link>
 
           <a
-            onClick={!like ? addFavouritesHandle : deleteFavouritesHandle}
-            onFocus={() => {
-              setFocus(true);
-            }}
-            onBlur={() => {
-              setFocus(false);
-            }}
+            onClick={handlerOnClick}
             href="#"
-            className="btn btn-outline-warning"
-            style={
-              !charged
-                ? { display: "none" }
-                : like && focus
-                ? {
-                    color: "red",
-                    borderColor: "red",
-                    backgroundColor: "rgb(254, 219, 219)",
-                    boxShadow: "0 0 0.3em 0.2em red",
-                  }
-                : like
-                ? {
-                    color: "red",
-                    borderColor: "red",
-                    backgroundColor: "rgb(254, 219, 219)",
-                  }
-                : null
+            className={
+              !like ? "btn btn-outline-warning" : "btn btn-outline-danger"
             }
           >
             <FontAwesomeIcon icon={faHeart} />

@@ -4,15 +4,16 @@ export const Description = (props) => {
   return (
     <div className="container-fluid characters-wrapper ">
       <div className="row characters-wrapper-top ">
-        <div className="col-12 col-md-6 m-0 p-0 characters-img ">
+        <div className="col-12 col-md-6 m-0 p-0 characters-img">
           <img
-            width="560px"
+            width={props.type === "characters" ? "65%" : "560px"}
             src={
               props.type === "planets" && props.uid === "1"
                 ? "https://upload.wikimedia.org/wikipedia/en/6/6d/Tatooine_%28fictional_desert_planet%29.jpg"
                 : `https://starwars-visualguide.com/assets/img/${props.type}/${props.uid}.jpg`
             }
             alt=""
+            style={props.type === "characters" ? { margin: "0 auto" } : null}
           />
         </div>
 
