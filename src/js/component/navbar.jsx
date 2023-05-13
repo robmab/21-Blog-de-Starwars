@@ -1,7 +1,8 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { Context } from "../store/appContext";
-
 import { Link } from "react-router-dom";
+
+import { Search } from "./search.jsx";
 
 import "../../styles/navbar.css";
 import sfLogo from "../../img/sw.png";
@@ -25,10 +26,7 @@ export const Navbar = () => {
   }, [store.favourites]);
 
   //CAPTURE WIDTH AND HEIGHT WHEN ZOOM IN/OUT
-  const [dimensions, setDimensions] = useState({
-    height: window.innerWidth,
-    width: window.innerHeight,
-  });
+  const [dimensions, setDimensions] = useState({});
 
   useEffect(() => {
     const handleResize = () => {
@@ -42,13 +40,18 @@ export const Navbar = () => {
   }, []);
 
   return (
-    <nav className="navbar navbar-light bg-light">
-      <div className="">
-        <Link to="/">
-          <img width="80px" src={sfLogo} alt="" />
-        </Link>
-
-        <div className="dropdown">
+    <nav className="navbar navbar-light bg-light container-fluid">
+      <div className="row">
+        {/* LOGO */}
+        <div className="logo col-4 col-md-6">
+          <Link to="/">
+            <img width="80px" src={sfLogo} alt="" />
+          </Link>
+        </div>
+        {/* SEARCH */}
+        <Search />
+        {/* DROPDOWN */}
+        <div className="dropdown col-12 col-md-2 ">
           <button
             className="btn btn-primary dropdown-toggle"
             type="button"
@@ -61,7 +64,7 @@ export const Navbar = () => {
               <p>{fav.length}</p>
             </div>
           </button>
-          <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <ul className="dropdown-menu" aria-labelledby="list">
             {fav.length === 0 ? (
               <p>Empty list</p>
             ) : (
