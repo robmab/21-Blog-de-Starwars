@@ -43,7 +43,7 @@ export const Navbar = () => {
     <nav className="navbar navbar-light bg-light container-fluid">
       <div className="row">
         {/* LOGO */}
-        <div className="logo col-4 col-md-6">
+        <div className="logo col-12 col-md-6">
           <Link to="/">
             <img width="80px" src={sfLogo} alt="" />
           </Link>
@@ -51,7 +51,7 @@ export const Navbar = () => {
         {/* SEARCH */}
         <Search />
         {/* DROPDOWN */}
-        <div className="dropdown col-12 col-md-2 ">
+        <div className="dropdown col-6 col-md-2 ">
           <button
             className="btn btn-primary dropdown-toggle"
             type="button"

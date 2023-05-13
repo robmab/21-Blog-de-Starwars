@@ -1,5 +1,5 @@
-/* *{
-border: 1px solid red;
+/* * {
+  border: 1px solid red;
 } */
 
 nav {
@@ -79,11 +79,10 @@ nav > div {
 }
 
 @media (max-width: 720px) {
-  .dropdown {
-    margin-top: 0.5em !important;
-  }
+  .logo {
+    display: flex;
+    justify-content: center;
 
-  .dropdown-menu {
-    margin-left: 8em;
+    padding-bottom: 0.5em;
   }
 }

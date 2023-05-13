@@ -51,7 +51,19 @@ nav .search input {
 }
 
 @media (max-width: 720px) {
+  .search {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    justify-content: start;
+  }
+
   .search input {
     width: 90%;
+    margin: 0 auto 0 0 !important;
+    padding: 0;
+  }
+
+  .search-list{
+    top: 8em;
   }
 }

@@ -33,7 +33,7 @@ export const Search = () => {
   };
 
   return (
-    <div className="search col-8 col-md-4  ">
+    <div className="search col-6 col-md-4  ">
       <div>
         <input
           onChange={handleInput}
