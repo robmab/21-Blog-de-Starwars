@@ -15,7 +15,6 @@ export const Characters = () => {
     actions.loadData(id, "people");
   }, [store.people]);
 
-  console.log(store.people[id]);
   return (
     <>
       {store.people.length > 0 && store.people[id].item && (

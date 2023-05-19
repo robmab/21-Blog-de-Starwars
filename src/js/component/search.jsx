@@ -5,7 +5,7 @@ import { Context } from "../store/appContext";
 import "../../styles/search.css";
 
 export const Search = () => {
-  const { store, actions } = useContext(Context);
+  const { store } = useContext(Context);
 
   const [input, setInput] = useState("");
   const [filter, setFilter] = useState([]);
@@ -17,13 +17,19 @@ export const Search = () => {
 
     for (const array in store) {
       if (array !== "favourites") {
-        const aux = store[array].filter(
-          (item) => item.name.toLowerCase().includes(value) && value !== ""
-        );
-        filter = [...filter, ...aux];
+        store[array].forEach((object, index) => {
+          const name = object.name.toLowerCase();
+          if (name.includes(value) && value !== "")
+            filter.push({
+              name: name.charAt(0).toUpperCase() + name.slice(1),
+              uid: index,
+              type: array === "people" ? "characters" : array,
+            });
+        });
       }
+
+      setFilter(filter);
     }
-    setFilter(filter);
   };
 
   return (
