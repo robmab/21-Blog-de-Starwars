@@ -17,19 +17,26 @@ export const Search = () => {
 
     for (const array in store) {
       if (array !== "favourites") {
-        store[array].forEach((object, index) => {
-          const name = object.name.toLowerCase();
-          if (name.includes(value) && value !== "")
-            filter.push({
-              name: name.charAt(0).toUpperCase() + name.slice(1),
-              uid: index,
-              type: array === "people" ? "characters" : array,
-            });
-        });
-      }
+        const aux = store[array].filter(
+          (item) => item.name.toLowerCase().includes(value) && value !== ""
+        );
 
-      setFilter(filter);
+        aux.map((item) => {
+          item.name = item.name.charAt(0).toUpperCase() + item.name.slice(1);
+
+          store[array].forEach((object, index) => {
+            if (object.name === item.name) item.id = index;
+          });
+          item.name = item.name.charAt(0).toUpperCase() + item.name.slice(1);
+          item.type = array === "people" ? "characters" : array;
+          return item;
+        });
+
+        filter = [...filter, ...aux];
+      }
     }
+    console.log(filter);
+    setFilter(filter);
   };
 
   return (
@@ -51,7 +58,7 @@ export const Search = () => {
                     setInput("");
                     setFilter([]);
                   }}
-                  to={`/${li.type}/${li.uid}`}
+                  to={`/${li.type}/${li.id}`}
                   key={index}
                 >
                   <li>{li.name}</li>
