@@ -37,7 +37,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
 
         /* PEOPLE */
-        const people = localStorage.getItem("people");
+        const people = JSON.parse(localStorage.getItem("people"));
         if (people === null) {
           fetch("https://www.swapi.tech/api/people")
             .then((r) => {
@@ -52,7 +52,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             })
             .catch((error) => console.log(error));
         } else {
-          setStore({ people: JSON.parse(people) });
+          setStore({ people: people });
         }
 
         /* VEHICLES */
@@ -100,47 +100,10 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      loadData: (param, type, setValues) => {
+      loadData: (param, type) => {
         if (getStore().people.length === 0) return; //Check if people is not empty first
 
         const details = getStore()[type][param];
-
-        const properties = () => {
-          //SET PROPERTIES FUNCTION
-          if (type === "people") {
-            setValues({
-              subName: details.item.properties.name,
-              birthYear: details.item.properties.birth_year,
-              gender: details.item.properties.gender,
-              height: details.item.properties.height,
-              skinColor: details.item.properties.skin_color,
-              eyeColor: details.item.properties.eye_color,
-            });
-          }
-
-          if (type === "vehicles") {
-            setValues({
-              subName: details.item.properties.name,
-              model: details.item.properties.model,
-              length: details.item.properties.length,
-              maxAtmospheringSpeed:
-                details.item.properties.max_atmosphering_speed,
-              costInCredits: details.item.properties.cost_in_credits,
-              cargoCapacity: details.item.properties.cargo_capacity,
-            });
-          }
-          if (type === "planets") {
-            setValues({
-              subName: details.item.properties.name,
-              climate: details.item.properties.climate,
-              population: details.item.properties.population,
-              orbitalPeriod: details.item.properties.orbital_period,
-              rotationPeriod: details.item.properties.rotation_period,
-              diameter: details.item.properties.diameter,
-            });
-          }
-        };
-
         const component = localStorage.getItem(details.name);
         if (component === null) {
           //CHARGE DATA FROM API
@@ -151,19 +114,19 @@ const getState = ({ getStore, getActions, setStore }) => {
             })
             .then((data) => {
               console.log(data);
-              getStore()[type][param].item = data.result;
-              properties();
+
+              const store = getStore();
+              store[type][param].item = data.result;
+              setStore(store);
 
               //SAVE DATA ON LOCALSTORAGE
-              localStorage.setItem(
-                details.name,
-                JSON.stringify(details.item)
-              );
+              localStorage.setItem(details.name, JSON.stringify(details.item));
             })
             .catch((error) => console.log(error));
         } else {
-          getStore()[type][param].item = JSON.parse(component);
-          properties();
+          const store = getStore();
+          store[type][param].item = JSON.parse(component);
+          setStore(store);
         }
       },
     },

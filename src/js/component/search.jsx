@@ -13,23 +13,17 @@ export const Search = () => {
   const handleInput = (e) => {
     setInput(e.target.value);
     const value = e.target.value.toLowerCase();
-    const filter = [];
+    let filter = [];
 
     for (const array in store) {
       if (array !== "favourites") {
-        store[array].forEach((object, index) => {
-          const name = object.name.toLowerCase();
-          if (name.includes(value) && value !== "")
-            filter.push({
-              name: name.charAt(0).toUpperCase() + name.slice(1),
-              uid: index,
-              type: array === "people" ? "characters" : array,
-            });
-        });
+        const aux = store[array].filter(
+          (item) => item.name.toLowerCase().includes(value) && value !== ""
+        );
+        filter = [...filter, ...aux];
       }
-
-      setFilter(filter);
     }
+    setFilter(filter);
   };
 
   return (

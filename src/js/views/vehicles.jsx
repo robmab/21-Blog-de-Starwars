@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 
 import { Context } from "../store/appContext";
@@ -6,39 +6,30 @@ import { Context } from "../store/appContext";
 import "../../styles/description.css";
 import { Description } from "../component/description.jsx";
 
-export const Vehicles = (props) => {
+export const Vehicles = () => {
   const { store, actions } = useContext(Context);
   const id = useParams().theid;
 
-  const [values, setValues] = useState({
-    subName: "",
-    model: "",
-    length: "",
-    maxAtmospheringSpeed: "",
-    costInCredits: "",
-    cargoCapacity: "",
-  });
-
   useEffect(() => {
     //Check when store is not empty
-    actions.loadData(id, "vehicles", setValues);
+    actions.loadData(id, "vehicles");
   }, [store.vehicles]);
 
   return (
     <>
-      {store.vehicles.length > 0 ? (
+      {store.vehicles.length > 0 && store.vehicles[id].item && (
         <Description
           name={store.vehicles[id].name}
           uid={store.vehicles[id].uid}
           type="vehicles"
-          one={values.subName}
-          two={values.model}
-          three={values.length}
-          four={values.maxAtmospheringSpeed}
-          five={values.costInCredits}
-          six={values.cargoCapacity}
+          one={store.vehicles[id].item.properties.name}
+          two={store.vehicles[id].item.properties.model}
+          three={store.vehicles[id].item.properties.length}
+          four={store.vehicles[id].item.properties.max_atmosphering_speed}
+          five={store.vehicles[id].item.properties.cost_in_credits}
+          six={store.vehicles[id].item.properties.cargo_capacity}
         />
-      ) : null}
+      )}
     </>
   );
 };

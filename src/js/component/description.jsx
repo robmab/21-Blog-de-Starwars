@@ -6,7 +6,7 @@ export const Description = (props) => {
       <div className="row characters-wrapper-top ">
         <div className="col-12 col-md-6 m-0 p-0 characters-img">
           <img
-            width={props.type === "characters" ? "65%" : "560px"}
+            width={props.type === "characters" ? "360px" : "560px"}
             src={
               props.type === "planets" && props.uid === "1"
                 ? "https://upload.wikimedia.org/wikipedia/en/6/6d/Tatooine_%28fictional_desert_planet%29.jpg"
@@ -37,8 +37,20 @@ export const Description = (props) => {
             <thead>
               <tr>
                 <th>Name</th>
-                <th>Birth Year</th>
-                <th>Gender</th>
+                <th>
+                  {props.type === "characters"
+                    ? "Birth Year"
+                    : props.type === "vehicles"
+                    ? "Model"
+                    : "Climate"}
+                </th>
+                <th>
+                  {props.type === "characters"
+                    ? "Gender"
+                    : props.type === "vehicles"
+                    ? "Length"
+                    : "Population"}
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -54,9 +66,27 @@ export const Description = (props) => {
           <table>
             <thead>
               <tr>
-                <th>Height</th>
-                <th>Skin Color</th>
-                <th>Eye Color</th>
+                <th>
+                  {props.type === "characters"
+                    ? "Heigth"
+                    : props.type === "vehicles"
+                    ? "Max Atmosphering Speed"
+                    : "Orbital Period"}
+                </th>
+                <th>
+                  {props.type === "characters"
+                    ? "Skin Color"
+                    : props.type === "vehicles"
+                    ? "Cost"
+                    : "Rotation Period"}
+                </th>
+                <th>
+                  {props.type === "characters"
+                    ? "Eye Color"
+                    : props.type === "vehicles"
+                    ? "Capacity"
+                    : "Diameter"}
+                </th>
               </tr>
             </thead>
             <tbody>
