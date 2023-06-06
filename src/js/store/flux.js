@@ -1,12 +1,62 @@
+import axios from "axios";
 const getState = ({ getStore, getActions, setStore }) => {
+  const url =
+    "https://robmab-potential-space-goldfish-xp9gqqrgr94h6jj9-3000.preview.app.github.dev";
   return {
     store: {
       people: [],
       vehicles: [],
       planets: [],
       favourites: [],
+      user: {},
     },
     actions: {
+      logout: () => {
+        const store = getStore();
+        store.user = {};
+        setStore(store);
+      },
+      login: async (object) => {
+        /* if (localStorage.getItem("token")) return true */
+
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods":
+              "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+            "Access-Control-Allow-Headers":
+              "Origin, Content-Type, X-Auth-Token",
+          },
+        };
+        const data = {
+          email: object.email,
+          password: object.password,
+        };
+
+        try {
+          let response = await axios.post(`${url}/login`, data,config);
+          console.log(response, response.data, response.status);
+
+          /* store = getStore() */
+          //ASIGN TOKEN TO LOCALSTORAGE
+          if (response.status === 200) {
+            localStorage.setItem("token", response.data.token);
+            localStorage.setItem("data", JSON.stringify(response.data.user));
+
+            const store = getStore();
+            store.user = response.data.user;
+            setStore(store);
+
+            return true;
+          }
+        } catch (err) {
+          if (err.response.status === 401) {
+            console.log(err.response?.data, err.response?.status);
+            return false;
+          }
+        }
+      },
       deleteFavourites: (name) => {
         let store = getStore();
         store.favourites = store.favourites.filter((x) => x.name != name);

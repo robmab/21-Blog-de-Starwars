@@ -10,7 +10,6 @@ export const Home = () => {
   const { store } = useContext(Context);
 
 
-
   return (
     <div className="home-wrapper">
       <h1>Characters</h1>

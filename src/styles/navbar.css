@@ -78,6 +78,13 @@ nav > div {
   cursor: crosshair;
 }
 
+/* LOGIN */
+.dropdown > button > a{
+  color: white;
+  text-decoration: none;
+}
+
+
 @media (max-width: 720px) {
   .logo {
     display: flex;

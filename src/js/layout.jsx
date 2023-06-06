@@ -3,6 +3,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
 import { Home } from "./views/home.jsx";
+import { Login } from "./views/login.jsx";
+import { Profile } from "./views/profile.jsx";
 import { Characters } from "./views/characters.jsx";
 import { Vehicles } from "./views/vehicles.jsx";
 import { Planets } from "./views/planets.jsx";
@@ -25,6 +27,8 @@ const Layout = () => {
           <div className="page-wrapper">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/profile" element={<Profile />} />
 
               <Route path="/characters/:theid" element={<Characters />} />
               <Route path="/vehicles/:theid" element={<Vehicles />} />
