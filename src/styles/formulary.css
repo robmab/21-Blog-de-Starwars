@@ -8,9 +8,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  
+
   padding-top: 6em;
-  width: 18rem; 
+  width: 18rem;
 }
 
 .wrapper-formulary > h1 {
@@ -35,8 +35,11 @@
   font-weight: 600;
   font-size: 17px;
 }
-.form-group > input {
-  margin-top: 6px;
+
+
+.wrapper-formulary a {
+  text-decoration: none;
+  font-size: small;
 }
 
 /* ALERT */
@@ -69,7 +72,7 @@
   }
 }
 
-@media (min-width: 720px) and (max-width:900px) {
+@media (min-width: 720px) and (max-width: 900px) {
   .wrapper-formulary {
     width: 90%;
   }

@@ -19,6 +19,37 @@ const getState = ({ getStore, getActions, setStore }) => {
         localStorage.removeItem("token");
         localStorage.removeItem("data");
       },
+      signup: async (contactData) => {
+        console.log(contactData);
+
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods":
+              "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+            "Access-Control-Allow-Headers":
+              "Origin, Content-Type, X-Auth-Token",
+          },
+        };
+
+        const data = {
+          user_name: contactData.username,
+          first_name: contactData.firstname,
+          last_name: contactData.lastname,
+          email: contactData.email,
+          password: contactData.password,
+        };
+
+        try {
+          let response = await axios.post(`${url}/signup`, data, config);
+          console.log(response, response.data, response.status);
+
+          return true;
+        } catch (err) {
+          return false;
+        }
+      },
       login: async (object) => {
         /* if (localStorage.getItem("token")) return true */
 
@@ -38,7 +69,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
 
         try {
-          let response = await axios.post(`${url}/login`, data,config);
+          let response = await axios.post(`${url}/login`, data, config);
           console.log(response, response.data, response.status);
 
           /* store = getStore() */
@@ -53,14 +84,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 
             return true;
           }
-          return true
+          return true;
         } catch (err) {
           if (err.response.status === 401) {
             console.log(err.response?.data, err.response?.status);
             return false;
           }
 
-          return false
+          return false;
         }
       },
       deleteFavourites: (name) => {

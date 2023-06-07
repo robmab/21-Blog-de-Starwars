@@ -4,6 +4,7 @@ import ScrollToTop from "./component/scrollToTop";
 
 import { Home } from "./views/home.jsx";
 import { Login } from "./views/login.jsx";
+import { Signup } from "./views/signup.jsx";
 import { Profile } from "./views/profile.jsx";
 import { Characters } from "./views/characters.jsx";
 import { Vehicles } from "./views/vehicles.jsx";
@@ -29,6 +30,7 @@ const Layout = () => {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/signup" element={<Signup />} />
 
               <Route path="/characters/:theid" element={<Characters />} />
               <Route path="/vehicles/:theid" element={<Vehicles />} />
