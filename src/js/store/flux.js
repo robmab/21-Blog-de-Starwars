@@ -1,7 +1,7 @@
 import axios from "axios";
 const getState = ({ getStore, getActions, setStore }) => {
   const url =
-    "https://robmab-potential-space-goldfish-xp9gqqrgr94h6jj9-3000.preview.app.github.dev";
+    "https://robmab-probable-space-engine-vrgj77pj6p536p74-3000.preview.app.github.dev";
   return {
     store: {
       people: [],
@@ -15,6 +15,9 @@ const getState = ({ getStore, getActions, setStore }) => {
         const store = getStore();
         store.user = {};
         setStore(store);
+
+        localStorage.removeItem("token");
+        localStorage.removeItem("data");
       },
       login: async (object) => {
         /* if (localStorage.getItem("token")) return true */
@@ -50,11 +53,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 
             return true;
           }
+          return true
         } catch (err) {
           if (err.response.status === 401) {
             console.log(err.response?.data, err.response?.status);
             return false;
           }
+
+          return false
         }
       },
       deleteFavourites: (name) => {

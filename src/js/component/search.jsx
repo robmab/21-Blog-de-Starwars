@@ -16,7 +16,8 @@ export const Search = () => {
     let filter = [];
 
     for (const array in store) {
-      if (array !== "favourites") {
+      if (array === "people" || array === "vehicles" || array === "planets") {
+        console.log(array);
         const aux = store[array].filter(
           (item) => item.name.toLowerCase().includes(value) && value !== ""
         );

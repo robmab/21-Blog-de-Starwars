@@ -102,41 +102,38 @@ export const Navbar = () => {
         </div>
         {/* LOGIN/PROFILE/LOGOUT */}
         {token ? (
-          <div className="dropdown col-6 col-md-2 ">
-            <button
-              className="btn btn-primary dropdown-toggle"
-              type="button"
-              id="dropdownMenuButton2"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              {JSON.parse(localStorage.getItem("data"))?.user_name}
-              <div>
-                <p>{fav.length}</p>
-              </div>
-            </button>
-            <ul className="dropdown-menu" aria-labelledby="list">
-              <li>
-                <Link
-                  aria-expanded="true"
-                  onClick={() => {
-                    localStorage.removeItem("token");
-                    localStorage.removeItem("data");
-                    actions.logout();
-                  }}
-                  className="fav-name"
-                  to={`/login`}
-                >
-                  Logout
-                </Link>
-              </li>
-              <li>
-                <Link className="fav-name" to={`/profile`}>
-                  Profile
-                </Link>
-              </li>
-            </ul>
-          </div>
+          <>
+            <div className="dropdown col-6 col-md-2 ">
+              <button
+                className="btn btn-primary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                {JSON.parse(localStorage.getItem("data"))?.user_name}
+              </button>
+              <ul
+                className="dropdown-menu"
+                aria-labelledby="dropdownMenuButton"
+              >
+                <li>
+                  <Link
+                    onClick={() => actions.logout()}
+                    className="fav-name dropdown-item"
+                    to={"/login"}
+                  >
+                    Logout
+                  </Link>
+                </li>
+                <li>
+                  <Link className="fav-name dropdown-item" to={`/profile`}>
+                    Profile
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </>
         ) : (
           <div className="dropdown col-6 col-md-2 ">
             <button className="btn btn-primary ">
