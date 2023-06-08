@@ -138,7 +138,7 @@ export const Signup = () => {
                   value={password}
                   type="password"
                   className="form-control"
-                  id="email"
+                  id="password"
                   aria-describedby="emailHelp"
                 />
               </div>
@@ -147,7 +147,7 @@ export const Signup = () => {
                 <input
                   onChange={(e) => setPasswordTwo(e.target.value)}
                   onBlur={(e)=>{
-                    if (e.target.value !== password){
+                    if (e.target.value !== password && password !== ""){
                       setAlert(true)
                       setAlertText("Invalid password")
                     }else{
@@ -157,7 +157,7 @@ export const Signup = () => {
                   value={passwordTwo}
                   type="password"
                   className="form-control"
-                  id="email"
+                  id="passwordTwo"
                   aria-describedby="emailHelp"
                 />
               </div>

@@ -40,7 +40,7 @@ export const Login = () => {
     };
 
     const login = await actions.login(contactData);
-    if (login) navigate("/");
+    if (login) navigate("/profile");
     setPassword("");
     setAlert(true);
     setAlertText("Incorrect username/email or password");

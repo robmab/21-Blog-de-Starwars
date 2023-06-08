@@ -11,6 +11,34 @@ const getState = ({ getStore, getActions, setStore }) => {
       user: {},
     },
     actions: {
+      private: async () => {
+        const token = localStorage.getItem("token");
+
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods":
+              "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+            "Access-Control-Allow-Headers":
+              "Origin, Content-Type, X-Auth-Token",
+            'Authorization': "Bearer " + token,
+          },
+        };
+        try {
+          let response = await axios.get(`${url}/private`, config);
+          console.log(response.data, response.status);
+
+          const store = getStore();
+          store.user = response.data.response;
+          setStore(store);
+
+          return true;
+        } catch (err) {
+          console.log(err.response.data, "error");
+          return false;
+        }
+      },
       logout: () => {
         const store = getStore();
         store.user = {};
