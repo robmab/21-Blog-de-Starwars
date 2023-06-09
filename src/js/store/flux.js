@@ -86,6 +86,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       login: async (object) => {
         /* if (localStorage.getItem("token")) return true */
 
+      
+
         const config = {
           headers: {
             "Content-Type": "application/json",
@@ -103,11 +105,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         try {
           let response = await axios.post(`${url}/login`, data, config);
-          console.log(response, response.data, response.status);
-
           /* store = getStore() */
           //ASIGN TOKEN TO LOCALSTORAGE
-          if (response.status === 200) {
+          if (response?.status === 200) {
+            console.log(response, response.data, response.status);
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("data", JSON.stringify(response.data.user));
 
@@ -119,12 +120,12 @@ const getState = ({ getStore, getActions, setStore }) => {
           }
           return true;
         } catch (err) {
-          if (err.response.status === 401) {
+          
+          if (err.response?.status === 401) {
             console.log(err.response?.data, err.response?.status);
             return false;
           }
-
-          return false;
+          return "error with API";
         }
       },
       deleteFavourites: (name) => {

@@ -38,12 +38,15 @@ export const Login = () => {
       email: email,
       password: password,
     };
-
+    
     const login = await actions.login(contactData);
-    if (login) navigate("/profile");
+    if (login && login !=="error with API") navigate("/profile");
     setPassword("");
     setAlert(true);
-    setAlertText("Incorrect username/email or password");
+
+    if (login === "error with API") setAlertText("Error with API");
+    else setAlertText("Incorrect username/email or password");
+    
   };
 
   return (
