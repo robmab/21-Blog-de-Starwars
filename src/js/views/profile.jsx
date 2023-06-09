@@ -15,7 +15,10 @@ export const Profile = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token === null) navigate("/login");
+    if (token === null) {
+      navigate("/login");
+      return;
+    }
 
     const priv = async () => {
       const profile = await actions.private();
@@ -31,10 +34,10 @@ export const Profile = () => {
   }, []);
 
   const [data, setData] = useState(JSON.parse(localStorage.getItem("data")));
-  
+
   return (
     <>
-      {load &&  (
+      {load && (
         <div className="profile-wrapper">
           <h1>User Info</h1>
           <div className="profile">
