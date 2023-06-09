@@ -121,7 +121,7 @@ export const Navbar = () => {
                   <Link
                     onClick={() => actions.logout()}
                     className="fav-name dropdown-item"
-                    to={"/login"}
+                    to={"/"}
                   >
                     Logout
                   </Link>
