@@ -12,6 +12,9 @@ const getState = ({ getStore, getActions, setStore }) => {
     },
     actions: {
       private: async () => {
+        const data = localStorage.getItem("data");
+        if (data !== null) return true
+
         const token = localStorage.getItem("token");
 
         const config = {
@@ -22,7 +25,7 @@ const getState = ({ getStore, getActions, setStore }) => {
               "GET, POST, PATCH, PUT, DELETE, OPTIONS",
             "Access-Control-Allow-Headers":
               "Origin, Content-Type, X-Auth-Token",
-            'Authorization': "Bearer " + token,
+            Authorization: "Bearer " + token,
           },
         };
         try {
@@ -32,6 +35,8 @@ const getState = ({ getStore, getActions, setStore }) => {
           const store = getStore();
           store.user = response.data.response;
           setStore(store);
+
+          localStorage.setItem("data", JSON.stringify(response.data.response));
 
           return true;
         } catch (err) {

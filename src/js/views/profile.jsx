@@ -23,41 +23,45 @@ export const Profile = () => {
         actions.logout();
         navigate("/");
       }
+
+      console.log(data);
       setLoad(true);
     };
     priv();
   }, []);
 
+  const [data, setData] = useState(JSON.parse(localStorage.getItem("data")));
+  
   return (
     <>
-      {load && store.user.user_name !== undefined && (
+      {load &&  (
         <div className="profile-wrapper">
           <h1>User Info</h1>
           <div className="profile">
             <div>
               <p>
                 <strong>Username: </strong>
-                {store.user.user_name}
+                {data?.user_name}
               </p>
             </div>
             <div>
               <p>
                 <strong>First name: </strong>
-                {store.user.first_name}
+                {data?.first_name}
               </p>
             </div>
 
             <div>
               <p>
                 <strong>Last name: </strong>
-                {store.user.last_name}
+                {data?.last_name}
               </p>
             </div>
 
             <div>
               <p>
                 <strong>Email: </strong>
-                {store.user.email}
+                {data?.email}
               </p>
             </div>
           </div>
